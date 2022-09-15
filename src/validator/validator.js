@@ -18,8 +18,7 @@ const isValidRequestBody = (value) => {
 }
 
 const isValidMobile=/^[6-9]\d{9}$/gi;
-
-
+const isValidUrl=/^https?:\/\/(.+\/)+.+(\.(gif|png|jpg|jpeg|webp|svg|psd|bmp|tif|jfif))$/i
 module.exports = {
-    isValidMail, isValid, isValidName, isValidRequestBody,isValidfild,isValidMobile
+    isValidMail, isValid, isValidName, isValidRequestBody,isValidfild,isValidMobile,isValidUrl
 }

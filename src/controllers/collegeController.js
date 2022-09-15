@@ -1,6 +1,6 @@
 const collegeModel = require("../models/collegeModel")
 const internModel = require("../models/internModel")
-const { isValid, isValidRequestBody } = require("../validator/validator")
+const { isValid, isValidRequestBody,isValidUrl } = require("../validator/validator")
 const isValidName=(/^[a-zA-Z]{3,9}$/)
 const isValidfullName=(/^[a-zA-Z.,() ]{8,80}$/)
 
@@ -22,16 +22,24 @@ const createCollege = async function (req, res) {
             validfname: "length of name in between(3-9) , you can't use any Number & Special character "
         })
 
+
+        let uniqueName = await collegeModel.findOne({ name:name })
+        if ( uniqueName) {
+            return res.status(409).send({ status: false, message: ` college ${name} is Already Exists.` })//(409)it is use for the conflict
+        }
+
         if (!isValidfullName.test(fullName)) return res.status(406).send({
             status: false, msg: "Enter a valid fullName",
             validfname: "length of name in between(8-80) , you can't use any Number & Special character "
         })
 
         
-        let uniqueName = await collegeModel.findOne({ name:name })
-        if ( uniqueName) {
-            return res.status(409).send({ status: false, message: ` college ${name} is Already Exists.` })//(409)it is use for the conflict
-        }
+        
+
+        if (!isValidUrl.test(logoLink)) return res.status(406).send({
+            status: false, message: "logoLink  is not valid",
+            ValidMobile: "it must be a standard URL & it should be in following format gif|png|jpg|jpeg|webp|svg|psd|bmp|tif|jfif"
+        }) 
 
         if (isDeleted == true) return res.status(400).send({ status: false, msg: "you can't delete while creating" })
 
@@ -61,7 +69,7 @@ const collegeDetails = async function (req, res) {
             interns
         }
 
-        res.status(201).send({ status: true, message: "I got this data according yor Query", data: collegeDetails })
+        res.status(200).send({ status: true, message: "I got this data according yor Query", data: collegeDetails })
 
     } catch (error) {
         res.status(500).send({ status: true, message: error.message })
