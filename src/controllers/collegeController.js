@@ -17,7 +17,7 @@ const createCollege = async function (req, res) {
         if (!isValid(fullName)) return res.status(400).send({ status: false, message: "fullName is  requred" })
         if (!isValid(logoLink)) return res.status(400).send({ status: false, message: "logoLink  is  requred" })
 
-        if (!isValidName.test(name)) return res.status(406).send({
+        if (!isValidName.test(name)) return res.status(406).send({   
             status: false, msg: "Enter a valid name",
             validfname: "length of name in between(3-9) , you can't use any Number & Special character "
         })
