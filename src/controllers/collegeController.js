@@ -23,7 +23,7 @@ const createCollege = async function (req, res) {
         })
 
 
-        let uniqueName = await collegeModel.findOne({ name:name })
+        let uniqueName = await collegeModel.findOne({ name:name,isDeleted:false })
         if ( uniqueName) {
             return res.status(409).send({ status: false, message: ` college ${name} is Already Exists.` })//(409)it is use for the conflict
         }
@@ -38,7 +38,7 @@ const createCollege = async function (req, res) {
 
         if (!isValidUrl.test(logoLink)) return res.status(406).send({
             status: false, message: "logoLink  is not valid",
-            ValidMobile: "it must be a standard URL & it should be in following format gif|png|jpg|jpeg|webp|svg|psd|bmp|tif|jfif"
+            ValidUrl: "it must be a standard URL & it should be in following format gif|png|jpg|jpeg|webp|svg|psd|bmp|tif|jfif"
         }) 
 
         if (isDeleted == true) return res.status(400).send({ status: false, msg: "you can't delete while creating" })
@@ -60,7 +60,7 @@ const collegeDetails = async function (req, res) {
         if (!saveData) return res.status(404).send({ status: false, message: ` OOH!! OOHH!! college ${collegeName}  is not Exist` })
         const { name, fullName, logoLink } = saveData
 
-        let interns = await internModel.find({ collegeId: saveData._id }).select({ _id: 1, name: 1, email: 1, mobile: 1 })
+        let interns = await internModel.find({ collegeId: saveData._id,isDeleted:false }).select({ _id: 1, name: 1, email: 1, mobile: 1 })
         if (interns.length == 0) interns = `No One apply Internship in ${collegeName} college`
         const collegeDetails = {
             name,

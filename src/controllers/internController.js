@@ -14,7 +14,7 @@ const createIntern = async function (req, res) {
         if (!isValid(mobile)) return res.status(400).send({ status: false, message: "mobail is  requred" })
         if (!isValid(email)) return res.status(400).send({ status: false, message: "email is  requred" })
         if (!isValid(collegeName)) return res.status(400).send({ status: false, message: "collegeName is  requred" })
-
+   
         if (!isValidName.test(name)) return res.status(406).send({
             status: false, msg: "Enter a valid name",
             validfname: "length of name in between(3-20) , you can't use any Number & Special character "
@@ -24,6 +24,7 @@ const createIntern = async function (req, res) {
             status: false, msg: "email id is not valid",
             ValidMail: "email must be contain ==> @  Number  ."
         })
+        
         let uniqueEmail = await internModel.findOne({ email: email })
         if (uniqueEmail) {
             return res.status(409).send({ status: false, message: "Email Already Exists." })//(409)it is use for the conflict
@@ -50,7 +51,7 @@ const createIntern = async function (req, res) {
             collegeId: collegeId["_id"]
         }
 
-
+ 
         const saveData = await internModel.create(internData)
         res.status(201).send({ status: true, message: "Intern successfilly created", data: saveData })
 
