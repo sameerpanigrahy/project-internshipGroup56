@@ -10,9 +10,9 @@ const createIntern = async function (req, res) {
 
 
         const { name, mobile, email, collegeName, isDeleted } = Data
-        if (!isValid(name)) return res.status(400).send({ status: false, message: "name is  requred" })
-        if (!isValid(mobile)) return res.status(400).send({ status: false, message: "mobail is  requred" })
-        if (!isValid(email)) return res.status(400).send({ status: false, message: "email is  requred" })
+        if (!isValid(name)) return res.status(400).send({ status: false, message: "name is  required" })
+        if (!isValid(mobile)) return res.status(400).send({ status: false, message: "mobail is  required" })
+        if (!isValid(email)) return res.status(400).send({ status: false, message: "email is  required" })
         if (!isValid(collegeName)) return res.status(400).send({ status: false, message: "collegeName is  requred" })
 
         if (!isValidName.test(name)) return res.status(406).send({

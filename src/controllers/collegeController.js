@@ -12,10 +12,10 @@ const createCollege = async function (req, res) {
 
 
         const { name, logoLink, fullName, isDeleted } = Data
-
-        if (!isValid(name)) return res.status(400).send({ status: false, message: "name is  requred" })
-        if (!isValid(fullName)) return res.status(400).send({ status: false, message: "fullName is  requred" })
-        if (!isValid(logoLink)) return res.status(400).send({ status: false, message: "logoLink  is  requred" })
+ 
+        if (!isValid(name)) return res.status(400).send({ status: false, message: "name is required" })
+        if (!isValid(fullName)) return res.status(400).send({ status: false, message: "fullName is required" })
+        if (!isValid(logoLink)) return res.status(400).send({ status: false, message: "logoLink is required" })
 
         if (!isValidName.test(name)) return res.status(406).send({
             status: false, msg: "Enter a valid name",
@@ -44,7 +44,7 @@ const createCollege = async function (req, res) {
         if (isDeleted == true) return res.status(400).send({ status: false, msg: "you can't delete while creating" })
 
         const saveData = await collegeModel.create(Data)
-        res.status(201).send({ status: true, message: "college successfilly created", data: saveData })
+        res.status(201).send({ status: true, message: "college successfully created", data: saveData })
 
     } catch (error) {
         res.status(500).send({ status: true, message: error.message })
@@ -55,7 +55,7 @@ const createCollege = async function (req, res) {
 const collegeDetails = async function (req, res) {
     try {
         const collegeName = req.query.collegeName
-       if(!isValid(collegeName)) return res.status(400).send({status: false, message: "Plese provide College Name That you wnat to see  "})
+       if(!isValid(collegeName)) return res.status(400).send({status: false, message: "Plese provide College Name That you want to see  "})
         const saveData = await collegeModel.findOne({ name: collegeName, isDeleted: false })
         if (!saveData) return res.status(404).send({ status: false, message: ` OOH!! OOHH!! college ${collegeName}  is not Exist` })
         const { name, fullName, logoLink } = saveData
@@ -69,7 +69,7 @@ const collegeDetails = async function (req, res) {
             interns
         }
 
-        res.status(200).send({ status: true, message: "I got this data according yor Query", data: collegeDetails })
+        res.status(200).send({ status: true, message: "I got this data according to your Query", data: collegeDetails })
 
     } catch (error) {
         res.status(500).send({ status: true, message: error.message })
