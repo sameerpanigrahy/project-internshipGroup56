@@ -22,7 +22,7 @@ router.get("/functionup/collegeDetails",collegeDetails)
 
 //---------------------------------------------------------------------------------------//
 
-router.all("/*", (req, res) => { res.status(400).send({ status: false, message: "Endpoint is not correct" }) })
+router.all("/*", (req, res) => { res.status(400).send({ status: false, message: "Endpoint is not correct plese provide a proper end-point" }) })
 
 
 module.exports = router
